@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────
+   Direzione: place-carries-it · nero caldo + oro · Barlow
+   ────────────────────────────────────────────────────────── */
+@theme {
+  --font-sans: "Barlow", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  /* Barlow Condensed 700 = display; Barlow 400/500 = testo */
+  --font-display: "Barlow Condensed", "Barlow", ui-sans-serif, system-ui, sans-serif;
+
+  /* Una coppia di margini su tutta la pagina: 16 / 24 / 32px */
+  --spacing-frame: 2rem;
+
+  --color-bg: #0c0a08;
+  --color-surface: #181512;
+  --color-surface2: #221d18;
+  --color-ink: #ffffff;
+  --color-body: #d8d3cb;
+  --color-muted: #948e85;
+  --color-accent: #c9a45a;
+  --color-accent-ink: #0c0a08;
+  --color-field: rgb(255 255 255 / 0.22);
+
+  /* Cinque sole misure */
+  --text-display: clamp(3.75rem, 12vw, 11rem);
+  --text-display--line-height: 0.88;
+  --text-display--letter-spacing: -0.015em;
+
+  --text-head: clamp(2rem, 4.1vw, 4rem);
+  --text-head--line-height: 1;
+  --text-head--letter-spacing: -0.015em;
+
+  --text-lead: clamp(1.25rem, 1.15rem + 0.5vw, 1.75rem);
+  --text-lead--line-height: 1.35;
+
+  --text-body: clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem);
+  --text-body--line-height: 1.55;
+
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.5;
+
+  --ease-brand: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-drift: drift 24s ease-in-out infinite alternate;
+  --animate-fade-in: fade-in 0.9s var(--ease-brand) both;
+
+  @keyframes drift {
+    from {
+      transform: scale(1) translate3d(0, 0, 0);
+    }
+    to {
+      transform: scale(1.06) translate3d(-1.2%, 1.2%, 0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   Base
+   ────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  /* Gli stati nascosti esistono solo a motion consentita */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   Utilities
+   ────────────────────────────────────────────────────────── */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility photo-tone {
+  filter: none;
+}
+
+/* Cursore del calcolatore: pista piatta, cursore quadrato */
+@layer components {
+  .range-input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 22px;
+    background: transparent;
+    outline: none;
+  }
+
+  .range-input::-webkit-slider-runnable-track {
+    height: 4px;
+    background: var(--color-surface2);
+  }
+
+  .range-input::-moz-range-track {
+    height: 4px;
+    background: var(--color-surface2);
+    border: 0;
+  }
+
+  .range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    margin-top: -9px;
+    border: 0;
+    border-radius: 0;
+    background: var(--color-accent);
+    cursor: pointer;
+  }
+
+  .range-input::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border: 0;
+    border-radius: 0;
+    background: var(--color-accent);
+    cursor: pointer;
+  }
+
+  .range-input:focus-visible::-webkit-slider-thumb {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  .range-input:focus-visible::-moz-range-thumb {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+}
