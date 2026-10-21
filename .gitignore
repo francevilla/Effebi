@@ -1,0 +1,10 @@
+# dipendenze
+node_modules/
+
+# build e cache
+.vite/
+*.local
+
+# sistema
+.DS_Store
+Thumbs.db
